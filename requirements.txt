@@ -8,7 +8,7 @@ absl-py==1.3.0
     # via
     #   tensorboard
     #   tensorflow
-annoy==1.17.1
+annoy==1.17.0
     # via ds-experimenting-isc (pyproject.toml)
 anyio==3.6.1
     # via
