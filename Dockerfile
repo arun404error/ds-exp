@@ -23,7 +23,7 @@ RUN \
 #RUN \
 #    chown -R appuser:appuser /app && \
 #    chmod +x scripts/start_server.sh
-
+RUN adduser appuser
 USER appuser
 
 RUN poetry install --no-dev --no-interaction
