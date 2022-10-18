@@ -13,7 +13,6 @@ COPY . .
 
 RUN \
     python3 -m pip install --upgrade pip &&\
-    pip install poetry &&\
     pip install annoy
 #
 #RUN \
@@ -25,6 +24,12 @@ RUN \
 #    chmod +x scripts/start_server.sh
 RUN adduser appuser
 USER appuser
+RUN \
+   curl -sSL https://install.python-poetry.org | python3 -
+
+ENV PATH="/home/appuser/.local/bin":$PATH
+
+RUN poetry install --no-dev --no-interaction
 
 RUN poetry install --no-dev --no-interaction
 
