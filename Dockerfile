@@ -9,13 +9,17 @@ ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 #COPY . .
 
-RUN \
-    python$PYTHON_VERSION -m pip install --upgrade pip &&\
-    pip install poetry \
+
 
 RUN \
-    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
-    python$PYTHON_VERSION -m pip install -U --no-cache-dir annoy
+    python3 -m pip install --upgrade pip &&\
+    pip install poetry &&\
+    pip install wheel==0.37.1 &&\
+    pip install anoy
+#
+#RUN \
+#    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
+#    python$PYTHON_VERSION -m pip install -U --no-cache-dir annoy
 
 
 RUN \
