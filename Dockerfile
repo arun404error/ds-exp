@@ -9,12 +9,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 COPY . .
 
+#RUN \
+#    python3 -m pip install --upgrade pip &&\
+#    python -m pip install poetry \
 
-RUN \
-    python3 -m pip install --upgrade pip &&\
-    python -m pip install poetry
-RUN pip install wheel
-RUN pip install annoy
 
 RUN \
     chown -R appuser:appuser /app && \
