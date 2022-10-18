@@ -18,8 +18,7 @@ RUN \
 RUN \
    curl -sSL https://install.python-poetry.org | python3 -
 
-ENV PATH="/home/appuser/.local/bin":$PATH
-
+ENV PATH="//root/.local/bin:":$PATH
 #
 #RUN \
 #    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
