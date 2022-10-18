@@ -35,7 +35,7 @@ RUN \
 #   curl -sSL https://install.python-poetry.org | python3 -
 #
 ##ENV PATH="//root/.local/bin:":$PATH
-#ENV PATH="/home/appuser/.local/bin:$PATH"
+ENV PATH="/home/appuser/.local/bin:$PATH"
 #RUN poetry install --no-dev --no-interaction
 
 EXPOSE 8080
