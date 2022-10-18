@@ -10,7 +10,7 @@ COPY . .
 
 
 RUN \
-    pip3 install annoy &&\
+    python -m pip install annoy &&\
     chown -R appuser:appuser /app && \
     chmod +x scripts/start_server.sh
 
