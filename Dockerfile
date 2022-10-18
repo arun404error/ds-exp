@@ -11,14 +11,7 @@ COPY . .
 
 
 
-RUN \
-    python3 -m pip install --upgrade pip &&\
-    pip install annoy
 
-RUN \
-   curl -sSL https://install.python-poetry.org | python3 -
-
-ENV PATH="//root/.local/bin:":$PATH
 #
 #RUN \
 #    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
@@ -31,6 +24,15 @@ ENV PATH="//root/.local/bin:":$PATH
 RUN adduser appuser
 
 USER appuser
+
+RUN \
+    python3 -m pip install --upgrade pip &&\
+    pip install annoy
+
+RUN \
+   curl -sSL https://install.python-poetry.org | python3 -
+
+ENV PATH="//root/.local/bin:":$PATH
 
 RUN poetry install --no-dev --no-interaction
 
