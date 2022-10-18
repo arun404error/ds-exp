@@ -1,6 +1,6 @@
-FROM asia.gcr.io/nonprod-utility-233414/base-images/ds-nvidia-base:ds-nvidia-base-cuda11.2-cudnn8-ubuntu20.04-latest
+#FROM asia.gcr.io/nonprod-utility-233414/base-images/ds-nvidia-base:ds-nvidia-base-cuda11.2-cudnn8-ubuntu20.04-latest
 
-#FROM python
+FROM python
 USER root
 
 ENV TZ=US
@@ -13,12 +13,10 @@ RUN \
     python$PYTHON_VERSION -m pip install --upgrade pip &&\
     pip install poetry \
 
-#RUN \
-#    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
-#    python$PYTHON_VERSION -m pip install -U --no-cache-dir annoy
 RUN \
-   pip install -U --no-cache-dir wheel==0.37.1 &&\
-    pip install -U --no-cache-dir annoy
+    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
+    python$PYTHON_VERSION -m pip install -U --no-cache-dir annoy
+
 
 RUN \
     chown -R appuser:appuser /app && \
