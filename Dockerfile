@@ -14,7 +14,6 @@ WORKDIR /app
 RUN \
     python3 -m pip install --upgrade pip &&\
     pip install poetry &&\
-    pip install wheel==0.37.1 &&\
     pip install anoy
 #
 #RUN \
