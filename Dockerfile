@@ -9,9 +9,10 @@ WORKDIR /app
 COPY . .
 
 
+#RUN \
+#    python3 -m pip install --upgrade pip &&\
+#    python -m pip install annoy &&\
 RUN \
-    python3 -m pip install --upgrade pip &&\
-    python -m pip install annoy &&\
     chown -R appuser:appuser /app && \
     chmod +x scripts/start_server.sh
 
