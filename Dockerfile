@@ -24,7 +24,7 @@ RUN \
 RUN adduser appuser
 USER appuser
 RUN \
-   curl -sSL https://install.python-poetry.org | python3 -&&\
+   curl -sSL https://install.python-poetry.org | python3 -&&
 
 ENV PATH="/home/appuser/.local/bin":$PATH
 
