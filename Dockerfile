@@ -30,8 +30,6 @@ ENV PATH="/home/appuser/.local/bin":$PATH
 
 RUN poetry install --no-dev --no-interaction
 
-RUN poetry install --no-dev --no-interaction
-
 
 EXPOSE 8080
 
