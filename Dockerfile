@@ -16,6 +16,9 @@ RUN \
 #RUN \
 #    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
 #    python$PYTHON_VERSION -m pip install -U --no-cache-dir annoy
+RUN \
+   pip install -U --no-cache-dir wheel==0.37.1 &&\
+    pip install -U --no-cache-dir annoy
 
 RUN \
     chown -R appuser:appuser /app && \
