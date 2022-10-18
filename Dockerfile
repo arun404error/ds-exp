@@ -13,7 +13,7 @@ COPY . .
 RUN \
     python3 -m pip install --upgrade pip &&\
     python -m pip install poetry
-
+RUN pip install wheel
 RUN pip install annoy
 
 RUN \
