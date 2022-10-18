@@ -1,4 +1,4 @@
-from deepsearrch.DeepImageSearch1 import SearchImage
+from deepsearch.DeepImageSearch import SearchImage
 
 
 # image_list = LoadData().from_folder(folder_list=["/Users/arunkumarc/Desktop/images"])
