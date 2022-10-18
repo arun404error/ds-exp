@@ -7,7 +7,7 @@ ENV TZ=US
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /app
-COPY . .
+#COPY . .
 
 RUN \
     python$PYTHON_VERSION -m pip install --upgrade pip &&\
