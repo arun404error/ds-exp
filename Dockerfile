@@ -11,7 +11,7 @@ COPY . .
 
 RUN \
     python$PYTHON_VERSION -m pip install --upgrade pip &&\
-    python$PYTHON_VERSION -m pip install poetry \
+    pip install poetry \
 
 RUN \
     python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
