@@ -14,7 +14,7 @@ WORKDIR /app
 RUN \
     python3 -m pip install --upgrade pip &&\
     pip install poetry &&\
-    pip install anoy
+    pip install annoy
 #
 #RUN \
 #    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
