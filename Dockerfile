@@ -11,8 +11,15 @@ COPY . .
 
 
 
-#RUN \
-#    python3 -m pip install --upgrade pip
+RUN \
+    python3 -m pip install --upgrade pip &&\
+    pip install annoy
+
+RUN \
+   curl -sSL https://install.python-poetry.org | python3 -
+
+ENV PATH="/home/appuser/.local/bin":$PATH
+
 #
 #RUN \
 #    python$PYTHON_VERSION -m pip install -U --no-cache-dir wheel==0.37.1  &&\
@@ -21,18 +28,12 @@ COPY . .
 #RUN \
 #    chown -R appuser:appuser /app && \
 #    chmod +x scripts/start_server.sh
+
 RUN adduser appuser
 
 USER appuser
 
-RUN \
-   curl -sSL https://install.python-poetry.org | python3 -
-
-ENV PATH="/home/appuser/.local/bin":$PATH
-
 RUN poetry install --no-dev --no-interaction
-
-RUN poetry add annoy
 
 EXPOSE 8080
 
