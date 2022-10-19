@@ -102,8 +102,8 @@ class Index:
 # @lru_cache()
 class SearchImage:
     def __init__(self):
-        self.image_data = pd.read_pickle("./meta-data-files/image_data_features.pkl")
-        # self.image_data = pd.read_pickle(model_file_conf.pkl_file_path)
+        # self.image_data = pd.read_pickle("./meta-data-files/image_data_features.pkl")
+        self.image_data = pd.read_pickle(model_file_conf.pkl_file_path)
         self.f = len(self.image_data['features'][0])
     def search_by_vector(self,v,n:int):
         self.v = v # Feature Vector
