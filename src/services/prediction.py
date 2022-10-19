@@ -1,5 +1,5 @@
 from deepsearch.DeepImageSearch import SearchImage
-
+from loguru import logger
 
 # image_list = LoadData().from_folder(folder_list=["/Users/arunkumarc/Desktop/images"])
 # Index(image_list).Start()
@@ -17,12 +17,14 @@ class Search:
             Search.__instance = cls()
         return Search.__instance
 
-
+search_instance = Search.get_instance()
+logger.info("singleton object created for search class")
 def predict_similar_images(path):
-    search_instance = Search.get_instance()
+
     try:
         similar_img = search_instance.model.get_similar_images(image_path=path, number_of_images=5)
         return similar_img
     except Exception as e:
-        print(e)
+        # print(e)
+        logger.error("it see")
         raise Exception("prediction error")

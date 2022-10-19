@@ -20,10 +20,12 @@ COPY . .
 #RUN \
 #    chown -R appuser:appuser /app && \
 #    chmod +x scripts/start_server.sh
+RUN chown -R appuser:appuser /app
 
 RUN adduser appuser
 
 USER appuser
+
 
 RUN \
     python3 -m pip install --upgrade pip &&\
