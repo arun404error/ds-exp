@@ -12,7 +12,7 @@ from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 from tensorflow.keras.models import Model
 import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
-
+from configs import model_file_conf
 class LoadData:
     """Loading the data from Single/Multiple Folders or form CSV file"""
     def __init__(self):
@@ -101,13 +101,13 @@ class Index:
 
 class SearchImage:
     def __init__(self):
-        self.image_data = pd.read_pickle("./meta-data-files/image_data_features.pkl")
+        self.image_data = pd.read_pickle(model_file_conf.pkl_file_path)#"./meta-data-files/image_data_features.pkl"
         self.f = len(self.image_data['features'][0])
     def search_by_vector(self,v,n:int):
         self.v = v # Feature Vector
         self.n = n # number of output
         u = AnnoyIndex(self.f, 'euclidean')
-        u.load("./meta-data-files/image_features_vectors.ann") # super fast, will just mmap the file
+        u.load(model_file_conf.ann_file_path) # super fast, will just mmap the file
         index_list = u.get_nns_by_vector(self.v, self.n) # will find the 10 nearest neighbors
         return dict(zip(index_list,self.image_data.iloc[index_list]['images_paths'].to_list()))
     def get_query_vector(self,image_path:str):
