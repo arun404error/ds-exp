@@ -20,7 +20,6 @@ COPY . .
 #RUN \
 #    chown -R appuser:appuser /app && \
 #    chmod +x scripts/start_server.sh
-RUN chown -R appuser:appuser /app
 
 RUN adduser appuser
 

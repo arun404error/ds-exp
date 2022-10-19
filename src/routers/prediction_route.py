@@ -39,7 +39,7 @@ def get_image_address(path: PathSchema, response: Response):
         temp_dir = tempfile.TemporaryDirectory()
         urllib.request.urlretrieve(path.path, temp_dir.name + "/input.jpeg")
         res = predict_similar_images(temp_dir.name + "/input.jpeg")
-        logger.info("prediction dyone successfull")
+        logger.info("prediction done successfull")
         response.status_code = 200
         return {"prediction": "success", "prediction_result": res}
     except Exception as err:

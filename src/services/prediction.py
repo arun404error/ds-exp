@@ -4,7 +4,6 @@ from loguru import logger
 # image_list = LoadData().from_folder(folder_list=["/Users/arunkumarc/Desktop/images"])
 # Index(image_list).Start()
 
-
 class Search:
     __instance = None
 
@@ -18,13 +17,14 @@ class Search:
         return Search.__instance
 
 search_instance = Search.get_instance()
-logger.info("singleton object created for search class")
-def predict_similar_images(path):
 
+logger.info("singleton object created for search class")
+
+def predict_similar_images(path):
     try:
         similar_img = search_instance.model.get_similar_images(image_path=path, number_of_images=5)
         return similar_img
     except Exception as e:
         # print(e)
-        logger.error("it see")
-        raise Exception("prediction error")
+        logger.error("some error in model")
+        raise Exception(str(e))
