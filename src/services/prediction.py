@@ -35,7 +35,7 @@ def predict_similar_images(img):
         logger.info("model time = "+str(datetime.now()-start))
         # print(similar_img)
         output_list=[similar_img.get(x) for x in similar_img]
-        result=[dict_out[x.split('/')[-1]] for x in output_list]
+        result=[dict_out[x.split('/')[-1]][0] for x in output_list]
         logger.info("post processing is running")
         return result
     except Exception as e:
