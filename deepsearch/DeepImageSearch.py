@@ -56,8 +56,10 @@ class FeatureExtractor:
             # Extract Features
             try:
                 feature = self.extract(img=Image.open(img_path))
+                print("testing")
                 features.append(feature)
             except:
+                print("testing")
                 features.append(None)
                 continue
         return features
@@ -105,18 +107,21 @@ class SearchImage:
         # self.image_data = pd.read_pickle("./meta-data-files/image_data_features.pkl")
         self.image_data = pd.read_pickle(model_file_conf.pkl_file_path)
         self.f = len(self.image_data['features'][0])
+        self.u = AnnoyIndex(self.f, 'euclidean')
+        # self.u.load("./meta-data-files/image_features_vectors.ann")
+        self.u.load(model_file_conf.ann_file_path)
     def search_by_vector(self,v,n:int):
         self.v = v # Feature Vector
         self.n = n # number of output
-        u = AnnoyIndex(self.f, 'euclidean')
+        # u = AnnoyIndex(self.f, 'euclidean')
         # u.load("./meta-data-files/image_features_vectors.ann")
-        u.load(model_file_conf.ann_file_path)
+        # u.load(model_file_conf.ann_file_path)
         # super fast, will just mmap the file
-        index_list = u.get_nns_by_vector(self.v, self.n) # will find the 10 nearest neighbors
+        index_list = self.u.get_nns_by_vector(self.v, self.n) # will find the 10 nearest neighbors
         return dict(zip(index_list,self.image_data.iloc[index_list]['images_paths'].to_list()))
-    def get_query_vector(self,image_path:str):
-        self.image_path = image_path
-        img = Image.open(self.image_path)
+    def get_query_vector(self,img):
+        # self.image_path = image_path
+        # img = Image.open(self.image_path)
         fe = FeatureExtractor()
         query_vector = fe.extract(img)
         return query_vector
@@ -134,9 +139,9 @@ class SearchImage:
         fig.tight_layout()
         fig.suptitle('Similar Result Found', fontsize=22)
         plt.show(fig)
-    def get_similar_images(self,image_path:str,number_of_images:int):
-        self.image_path = image_path
+    def get_similar_images(self,img,number_of_images:int):
+        self.img = img
         self.number_of_images = number_of_images
-        query_vector = self.get_query_vector(self.image_path)
+        query_vector = self.get_query_vector(self.img)
         img_dict = self.search_by_vector(query_vector,self.number_of_images)
         return img_dict

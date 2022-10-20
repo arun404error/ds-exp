@@ -1,5 +1,8 @@
-from deepsearch.DeepImageSearch import SearchImage
+# import traceback
+
+from deepsearch.DeepImageSearch import SearchImage,LoadData,Index
 from loguru import logger
+from datetime import  datetime
 
 # image_list = LoadData().from_folder(folder_list=["/Users/arunkumarc/Desktop/images"])
 # Index(image_list).Start()
@@ -20,11 +23,13 @@ search_instance = Search.get_instance()
 
 logger.info("singleton object created for search class")
 
-def predict_similar_images(path):
+def predict_similar_images(img):
     try:
-        similar_img = search_instance.model.get_similar_images(image_path=path, number_of_images=5)
+        start=datetime.now()
+        similar_img = search_instance.model.get_similar_images(img=img, number_of_images=5)
+        logger.info("model time =",datetime.now()-start)
         return similar_img
     except Exception as e:
-        # print(e)
         logger.error("some error in model")
-        raise Exception(str(e))
+        logger.error(e)
+        raise Exception("error in model prediction")

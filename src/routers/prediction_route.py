@@ -1,25 +1,32 @@
-import tempfile
-import urllib.request
+# import tempfile
+# import urllib.request
 
 from fastapi import APIRouter, UploadFile, Response
 from loguru import logger
 from src.schemas.request.path_schema import PathSchema
 from src.services.prediction import predict_similar_images
-
+from datetime import  datetime
 router = APIRouter(prefix="/predict")
-
-
+from PIL import Image
+from io import  BytesIO
+import  requests
 @router.post("/file")
 def get_image_file(file_input: UploadFile):
     try:
-        temp = tempfile.NamedTemporaryFile()
-        temp.write(file_input.file.read())
-        res = predict_similar_images(temp.name)
-        logger.info("prediction dyone successfull")
+        start = datetime.now()
+        # temp = tempfile.NamedTemporaryFile()
+        # temp.write(file_input.file.read())
+        # res = predict_similar_images(temp.name)
+        res=predict_similar_images(Image.open(BytesIO(file_input.file.read())))
+        logger.info("prediction done successfully")
+        logger.info("response time", datetime.now() - start)
         return {"prediction": "success", "prediction_result": res}
     except Exception as err:
-        logger.error("some exception arised")
-        return {"prediction": "failure", "Error": err}
+        if str(err) == "error in model prediction":
+            return {"prediction": "failure", "Error": "error in model prediction"}
+        logger.error("error in processing the image")
+        logger.error(err)
+        return {"prediction": "failure", "Error": "error in image pre process"}
 
 
 # @router.post("/path")
@@ -36,12 +43,21 @@ def get_image_file(file_input: UploadFile):
 @router.post("/image_address")
 def get_image_address(path: PathSchema, response: Response):
     try:
-        temp_dir = tempfile.TemporaryDirectory()
-        urllib.request.urlretrieve(path.path, temp_dir.name + "/input.jpeg")
-        res = predict_similar_images(temp_dir.name + "/input.jpeg")
-        logger.info("prediction done successfull")
+        start=datetime.now()
+        res = requests.get(path.path, timeout=2)
+        logger.info("image is fetched from the address")
+        res=predict_similar_images(Image.open(BytesIO(res.content)))
+        # temp_dir = tempfile.TemporaryDirectory()
+        # urllib.request.urlretrieve(path.path, temp_dir.name + "/input.jpeg")
+        # res = predict_similar_images(temp_dir.name + "/input.jpeg")
+        logger.info("prediction done successfully")
         response.status_code = 200
+        logger.info("response time",datetime.now()-start)
         return {"prediction": "success", "prediction_result": res}
     except Exception as err:
-        logger.error("some exception arised")
-        return {"prediction": "failure", "Error": str(err)}
+        if str(err) == "error in model prediction":
+            return {"prediction": "failure", "Error":"error in model prediction"}
+        logger.error("error in processing the image")
+        logger.error(err)
+        return {"prediction": "failure", "Error": "error in image pre process"}
+
