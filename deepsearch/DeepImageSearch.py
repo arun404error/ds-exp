@@ -12,7 +12,7 @@ from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 from tensorflow.keras.models import Model
 import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
-# from configs import model_file_conf
+from configs import model_file_conf
 # from functools import lru_cache
 class LoadData:
     """Loading the data from Single/Multiple Folders or form CSV file"""
@@ -34,8 +34,8 @@ class FeatureExtractor:
     __instance = None
     def __init__(self):
         # Use VGG-16 as the architecture and ImageNet for the weight
-        base_model = VGG16(weights='imagenet')
-        # base_model = VGG16(weights=model_file_conf.vgg_file_path)
+        # base_model = VGG16(weights='imagenet')
+        base_model = VGG16(weights=model_file_conf.vgg_file_path)
         # Customize the model to return features from fully-connected layer
         self.model = Model(inputs=base_model.input, outputs=base_model.get_layer('fc1').output)
     def extract(self, img):
@@ -114,12 +114,12 @@ class Index:
 # @lru_cache()
 class SearchImage:
     def __init__(self):
-        self.image_data = pd.read_pickle("./meta-data-files/image_data_features.pkl")
-        # self.image_data = pd.read_pickle(model_file_conf.pkl_file_path)
+        # self.image_data = pd.read_pickle("./meta-data-files/image_data_features.pkl")
+        self.image_data = pd.read_pickle(model_file_conf.pkl_file_path)
         self.f = len(self.image_data['features'][0])
         self.u = AnnoyIndex(self.f, 'euclidean')
-        self.u.load("./meta-data-files/image_features_vectors.ann")
-        # self.u.load(model_file_conf.ann_file_path)
+        # self.u.load("./meta-data-files/image_features_vectors.ann")
+        self.u.load(model_file_conf.ann_file_path)
     def search_by_vector(self,v,n:int):
         self.v = v # Feature Vector
         self.n = n # number of output

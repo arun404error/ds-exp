@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ds-experimenting-isc"
-version = "22.10.17.dev0"
+version = "22.10.20.dev0"
 description = ""
 authors = ["arunkumarc <arun.c@gdn-commerce.com>"]
 packages = [{include = "src"}]
