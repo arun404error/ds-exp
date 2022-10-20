@@ -42,3 +42,4 @@ def predict_similar_images(img):
         logger.error("some error in model")
         logger.error(e)
         raise Exception("error in model prediction")
+
