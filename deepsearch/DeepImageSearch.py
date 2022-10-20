@@ -31,7 +31,8 @@ class LoadData:
         return pd.read_csv(self.csv_file_path)[self.images_column_name].to_list() # Returning list of images
 
 class FeatureExtractor:
-    __instance = None
+    __instance =None
+
     def __init__(self):
         # Use VGG-16 as the architecture and ImageNet for the weight
         # base_model = VGG16(weights='imagenet')
@@ -65,6 +66,7 @@ class FeatureExtractor:
                 features.append(None)
                 continue
         return features
+
     @classmethod
     def get_instance(cls):
         if FeatureExtractor.__instance is None:
@@ -78,8 +80,7 @@ class Index:
         if 'meta-data-files' not in os.listdir():
             os.makedirs("../meta-data-files")
         # self.FE = FeatureExtractor()
-        self.FE = fe
-
+        self.FE=fe
     def start_feature_extraction(self):
         image_data = pd.DataFrame()
         image_data['images_paths'] = self.image_list
@@ -156,5 +157,4 @@ class SearchImage:
         img_dict = self.search_by_vector(query_vector,self.number_of_images)
         return img_dict
 
-
-fe = FeatureExtractor.get_instance()
+fe=FeatureExtractor.get_instance()
