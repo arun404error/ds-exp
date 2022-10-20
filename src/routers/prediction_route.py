@@ -5,8 +5,8 @@ from fastapi import APIRouter, UploadFile, Response
 from loguru import logger
 from src.schemas.request.path_schema import PathSchema
 from src.services.prediction import predict_similar_images
-# from datetime import  datetime
-import time
+from datetime import  datetime
+# import time
 router = APIRouter(prefix="/predict")
 from PIL import Image
 from io import  BytesIO
@@ -14,13 +14,13 @@ import  requests
 @router.post("/file")
 def get_image_file(file_input: UploadFile):
     try:
-        start = time.time()
+        start = datetime.now()
         # temp = tempfile.NamedTemporaryFile()
         # temp.write(file_input.file.read())
         # res = predict_similar_images(temp.name)
         res=predict_similar_images(Image.open(BytesIO(file_input.file.read())))
         logger.info("prediction done successfully")
-        logger.info("response time", time.time() - start)
+        logger.info("response time", str(datetime.now() - start))
         return {"prediction": "success", "prediction_result": res}
     except Exception as err:
         if str(err) == "error in model prediction":
@@ -44,7 +44,7 @@ def get_image_file(file_input: UploadFile):
 @router.post("/image_address")
 def get_image_address(path: PathSchema, response: Response):
     try:
-        start=time.time()
+        start=datetime.now()
         res = requests.get(path.path, timeout=2)
         logger.info("image is fetched from the address")
         res=predict_similar_images(Image.open(BytesIO(res.content)))
@@ -53,7 +53,7 @@ def get_image_address(path: PathSchema, response: Response):
         # res = predict_similar_images(temp_dir.name + "/input.jpeg")
         logger.info("prediction done successfully")
         response.status_code = 200
-        logger.info("response time",time.time()-start)
+        logger.info("response time "+str(datetime.now()-start))
         return {"prediction": "success", "prediction_result": res}
     except Exception as err:
         if str(err) == "error in model prediction":

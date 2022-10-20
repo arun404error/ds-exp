@@ -2,8 +2,9 @@
 
 from deepsearch.DeepImageSearch import SearchImage,LoadData,Index
 from loguru import logger
-# from datetime import  datetime
-import time
+from datetime import  datetime
+# import time
+
 # image_list = LoadData().from_folder(folder_list=["/Users/arunkumarc/Desktop/images"])
 # Index(image_list).Start()
 
@@ -25,9 +26,9 @@ logger.info("singleton object created for search class")
 
 def predict_similar_images(img):
     try:
-        start=time.time()
+        start=datetime.now()
         similar_img = search_instance.model.get_similar_images(img=img, number_of_images=5)
-        logger.info("model time =",time.time()-start)
+        logger.info("model time = "+str(datetime.now()-start))
         return similar_img
     except Exception as e:
         logger.error("some error in model")

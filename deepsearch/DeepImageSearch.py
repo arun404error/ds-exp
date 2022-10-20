@@ -33,7 +33,8 @@ class LoadData:
 class FeatureExtractor:
     def __init__(self):
         # Use VGG-16 as the architecture and ImageNet for the weight
-        base_model = VGG16(weights='imagenet')
+        # base_model = VGG16(weights='imagenet')
+        base_model = VGG16(weights=model_file_conf.vgg_file_path)
         # Customize the model to return features from fully-connected layer
         self.model = Model(inputs=base_model.input, outputs=base_model.get_layer('fc1').output)
     def extract(self, img):
