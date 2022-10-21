@@ -36,7 +36,8 @@ def predict_similar_images(img):
         output_list=[similar_img.get(x) for x in similar_img]
         result=[dict_out[x.split('/')[-1]][0] for x in output_list]
         logger.info("post processing is running")
-        logger.debug("similar images "+result)
+        logger.info("similar images ... :")
+        logger.debug(result)
         return set([x.split("/")[-2] for x in result])
         # return result
     except Exception as e:
