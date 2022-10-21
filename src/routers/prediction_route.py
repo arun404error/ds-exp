@@ -20,7 +20,7 @@ def get_image_file(file_input: UploadFile):
         # res = predict_similar_images(temp.name)
         res=predict_similar_images(Image.open(BytesIO(file_input.file.read())))
         logger.info("prediction done successfully")
-        logger.info("response time", str(datetime.now() - start))
+        logger.info("response time = "+str(datetime.now() - start))
         return {"prediction": "success", "prediction_result": res}
     except Exception as err:
         if str(err) == "error in model prediction":
@@ -43,7 +43,7 @@ def get_image_address(path: PathSchema, response: Response):
         # res = predict_similar_images(temp_dir.name + "/input.jpeg")
         logger.info("prediction done successfully")
         response.status_code = 200
-        logger.info("response time "+str(datetime.now()-start))
+        logger.info("response time = "+str(datetime.now()-start))
         return {"prediction": "success", "prediction_result": res}
     except Exception as err:
         if str(err) == "error in model prediction":
@@ -61,7 +61,7 @@ def get_image_base64_file(file_input:UploadFile, response: Response):
         logger.info("image is decoded")
         res = predict_similar_images(Image.open(BytesIO(image_byte)))
         logger.info("prediction done successfully")
-        logger.info("response time", str(datetime.now() - start))
+        logger.info("response time = "+str(datetime.now() - start))
         response.status_code = 200
         return {"prediction": "success", "prediction_result": res}
     except Exception as err:
