@@ -1,6 +1,6 @@
 # import tempfile
 # import urllib.request
-
+import base64
 from fastapi import APIRouter, UploadFile, Response
 from loguru import logger
 from src.schemas.request.path_schema import PathSchema
@@ -30,16 +30,6 @@ def get_image_file(file_input: UploadFile):
         return {"prediction": "failure", "Error": "error in image pre process"}
 
 
-# @router.post("/path")
-# def get_image_path(path: PathSchema, response: Response):
-#     try:
-#         res = predict_similar_images(path.path)
-#         response.status_code = 200
-#         return {"prediction": "success", "prediction_result": res}
-#     except Exception as err:
-#         print(err)
-#         return {"prediction": "failure", "Error": err}
-
 
 @router.post("/image_address")
 def get_image_address(path: PathSchema, response: Response):
@@ -62,3 +52,21 @@ def get_image_address(path: PathSchema, response: Response):
         logger.error(err)
         return {"prediction": "failure", "Error": "error in image pre process"}
 
+@router.post("/base64_file")
+def get_image_base64_file(file_input:UploadFile, response: Response):
+    try:
+        start = datetime.now()
+        byte = file_input.file.read()
+        image_byte = base64.b64decode(byte)
+        logger.info("image is decoded")
+        res = predict_similar_images(Image.open(BytesIO(image_byte)))
+        logger.info("prediction done successfully")
+        logger.info("response time", str(datetime.now() - start))
+        response.status_code = 200
+        return {"prediction": "success", "prediction_result": res}
+    except Exception as err:
+        if str(err) == "error in model prediction":
+            return {"prediction": "failure", "Error": "error in model prediction"}
+        logger.error("error in processing the image")
+        logger.error(err)
+        return {"prediction": "failure", "Error": "error in image pre process"}

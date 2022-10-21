@@ -33,11 +33,12 @@ def predict_similar_images(img):
         start=datetime.now()
         similar_img = search_instance.model.get_similar_images(img=img, number_of_images=5)
         logger.info("model time = "+str(datetime.now()-start))
-        # print(similar_img)
         output_list=[similar_img.get(x) for x in similar_img]
         result=[dict_out[x.split('/')[-1]][0] for x in output_list]
         logger.info("post processing is running")
-        return result
+        logger.debug("similar images "+result)
+        return set([x.split("/")[-2] for x in result])
+        # return result
     except Exception as e:
         logger.error("some error in model")
         logger.error(e)
