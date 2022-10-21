@@ -34,7 +34,7 @@ logger.info("singleton object created for search class")
 def predict_similar_images(img):
     try:
         start=datetime.now()
-        similar_img = search_instance.model.get_similar_images(img=img, number_of_images=7)
+        similar_img = search_instance.model.get_similar_images(img=img, number_of_images=5)
         logger.info("model time = "+str(datetime.now()-start))
         logger.info("post processing is running")
         output_list=[similar_img.get(x).split('/')[-1] for x in similar_img]
