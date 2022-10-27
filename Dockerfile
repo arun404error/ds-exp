@@ -1,6 +1,6 @@
 #FROM asia.gcr.io/nonprod-utility-233414/base-images/ds-nvidia-base:ds-nvidia-base-cuda11.2-cudnn8-ubuntu20.04-latest
 
-FROM ubuntu/apache2
+FROM tensorflow/serving
 USER root
 
 ENV TZ=US
