@@ -10,9 +10,9 @@ WORKDIR /app
 COPY . .
 
 
-RUN adduser appuser
-
-USER appuser
+#RUN adduser appuser
+#
+#USER appuser
 
 
 #RUN \
@@ -20,7 +20,7 @@ USER appuser
 #    pip install -r requirements.txt &&\
 #    pip install annoy
 
-RUN poetry install
+RUN poetry install --no-dev
 
 
 #ENV PATH="/home/appuser/.local/bin:$PATH"
