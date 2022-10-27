@@ -7,21 +7,23 @@ ENV TZ=US
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /app
-#COPY . .
+COPY . .
 
 
-RUN adduser appuser
+RUN #adduser appuser
 
-USER appuser
-
-
-RUN \
-    python3 -m pip install --upgrade pip &&\
-    pip install -r requirements.txt &&\
-    pip install annoy
+#USER appuser
 
 
-ENV PATH="/home/appuser/.local/bin:$PATH"
+#RUN \
+#    python3 -m pip install --upgrade pip &&\
+#    pip install -r requirements.txt &&\
+#    pip install annoy
+
+RUN poetry install
+
+
+#ENV PATH="/home/appuser/.local/bin:$PATH"
 
 EXPOSE 8080
 
