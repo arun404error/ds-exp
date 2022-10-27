@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "formatters": {
+    "default": {
+      "format": "%(asctime)s | %(levelname)-8s | %(module)s:%(funcName)s:%(lineno)d - %(message)s",
+      "datefmt": "%Y-%m-%d %H:%M:%S"
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "formatter": "default",
+      "stream": "ext://sys.stderr"
+    },
+    "google_cloud": {}
+  },
+  "loggers": {
+    "": {
+      "handlers": ["console", "google_cloud"]
+    },
+    "gunicorn.error": {
+      "handlers": ["console", "google_cloud"],
+      "propagate": false
+    },
+    "gunicorn.access": {
+      "handlers": ["console", "google_cloud"],
+      "propagate": false
+    },
+    "uvicorn.error": {
+      "handlers": ["console", "google_cloud"],
+      "propagate": false
+    },
+    "uvicorn.access": {
+      "handlers": ["console", "google_cloud"],
+      "propagate": false
+    }
+  }
+}
