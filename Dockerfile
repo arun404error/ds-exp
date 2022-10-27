@@ -20,8 +20,6 @@ RUN \
     pip install -r requirements.txt &&\
     pip install annoy
 
-RUN  pip install google-cloud-logging
-
 
 
 ENV PATH="/home/appuser/.local/bin:$PATH"
