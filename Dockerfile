@@ -10,9 +10,9 @@ WORKDIR /app
 COPY . .
 
 
-RUN #adduser appuser
+RUN adduser appuser
 
-#USER appuser
+USER appuser
 
 
 #RUN \
