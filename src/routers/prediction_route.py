@@ -4,7 +4,6 @@ import base64
 from fastapi import APIRouter, UploadFile, Response
 from loguru import logger
 from src.schemas.request.path_schema import PathSchema
-from src.schemas.request.image_schema import ImageSchema
 from src.services.prediction import predict_similar_images
 from datetime import  datetime
 # import time
@@ -53,12 +52,11 @@ def get_image_address(path: PathSchema, response: Response):
         logger.error(err)
         return {"prediction": "failure", "Error": "error in image pre process"}
 
-@router.post("/base64")
-def get_image_base64_file(base64_input:ImageSchema, response: Response):
+@router.post("/base64_file")
+def get_image_base64_file(file_input:UploadFile, response: Response):
     try:
         start = datetime.now()
-        # byte = file_input.file.read()
-        byte=base64_input.base64_string.encode()
+        byte = file_input.file.read()
         image_byte = base64.b64decode(byte)
         logger.info("image is decoded")
         res = predict_similar_images(Image.open(BytesIO(image_byte)))
