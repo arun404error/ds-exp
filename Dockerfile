@@ -19,7 +19,8 @@ RUN \
     python3 -m pip install --upgrade pip &&\
     pip install -r requirements.txt &&\
     pip install annoy &&\
-    pip install google-cloud-logging
+    pip install google-cloud-logging &&\
+    pip install protobuf==3.20.*
 
 
 ENV PATH="/home/appuser/.local/bin:$PATH"
