@@ -1,6 +1,6 @@
 #FROM asia.gcr.io/nonprod-utility-233414/base-images/ds-nvidia-base:ds-nvidia-base-cuda11.2-cudnn8-ubuntu20.04-latest
 
-FROM python
+FROM python:3.9
 USER root
 
 ENV TZ=US
@@ -18,9 +18,7 @@ USER appuser
 RUN \
     python3 -m pip install --upgrade pip &&\
     pip install -r requirements.txt &&\
-    pip install annoy &&\
-    pip install tensorflow
-
+    pip install annoy
 
 
 ENV PATH="/home/appuser/.local/bin:$PATH"
