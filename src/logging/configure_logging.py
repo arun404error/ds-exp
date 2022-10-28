@@ -10,7 +10,7 @@ from configs.env_configs import cloud_logger_config
 def configure_logging(name):
     print(f"configuring logging for {name}")
     try:
-        with open("resources/log_config.json") as f:
+        with open("src/logging/log_config.json") as f:
             log_config = json.load(f)
             log_config["handlers"]["google_cloud"] = {
                 "class": "google.cloud.logging.handlers.CloudLoggingHandler",
