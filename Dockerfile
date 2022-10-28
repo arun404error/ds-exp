@@ -18,7 +18,8 @@ USER appuser
 RUN \
     python3 -m pip install --upgrade pip &&\
     pip install -r requirements.txt &&\
-    pip install annoy
+    pip install annoy &&\
+    pip install google-cloud-logging
 
 
 ENV PATH="/home/appuser/.local/bin:$PATH"
