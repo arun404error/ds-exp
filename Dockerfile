@@ -22,7 +22,6 @@ RUN \
     pip install google-cloud-logging &&\
     pip install protobuf==3.20.*
 
-
 ENV PATH="/home/appuser/.local/bin:$PATH"
 
 EXPOSE 8080
