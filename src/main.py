@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from src.routers import sys_info,prediction_route
 import logging
-from src.logging import configure_logging
+from src.logging.configure_logging import configure_logging
 
 app=FastAPI()
 
