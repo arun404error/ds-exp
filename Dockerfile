@@ -7,7 +7,7 @@ ENV TZ=US
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /app
-COPY . .
+#COPY . .
 
 
 RUN adduser appuser
