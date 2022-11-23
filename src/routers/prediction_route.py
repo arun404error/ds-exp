@@ -64,7 +64,7 @@ def get_image_base64_file(base64_input:dict, response: Response):
         logger.info("prediction done successfully")
         logger.info("response time = "+str(datetime.now() - start))
         response.status_code = 200
-        return {"prediction": "success", "prediction_result": res}
+        return {"prediction": "success", "prediction_result": res[0],"image_URLs":res[1]}
     except Exception as err:
         if str(err) == "error in model prediction":
             return {"prediction": "failure", "Error": "error in model prediction"}
